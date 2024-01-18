@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Node\Block\Document;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +24,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/products', function () {
-    return view('products.products');
-})->middleware(['auth', 'verified'])->name('products');
+Route::get('/documents', function () {
+    return view('documents.documents');
+})->middleware(['auth', 'verified'])->name('documents');
 
-Route::get('/create', [ProductController::class, 'create'])->middleware(['auth', 'verified'])->name('create');
+Route::get('/create', [DocumentController::class, 'create'])->middleware(['auth', 'verified'])->name('create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__.'/auth.php';

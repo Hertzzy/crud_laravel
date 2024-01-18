@@ -16,14 +16,14 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
-                        Produtos
+                    <x-nav-link :href="route('documents')" :active="request()->routeIs('documents')">
+                        Documentos
                     </x-nav-link>
                 </div>
 
                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('create')" :active="request()->routeIs('create')">
-                        Cadastrar produto
+                        Criar documento
                     </x-nav-link>
                 </div>
             </div>
