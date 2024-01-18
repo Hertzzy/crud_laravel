@@ -31,15 +31,17 @@
                             <input type="file" name="uploadDoc" id="uploadDoc">
                         </div>
 
-                        <div>
+                       <div>
                             <x-input-label for="documentType" :value="__('Tipo do documento')" />
-                            <select name="documentType" id="documentType" class="mt-1 block w-full border-gray-300 rounded-md border border-slate-300 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm">
-                                    <option class="text-slate-300" value="processo">Processo</option>
-                                    <option class="text-slate-300" value="prontuario">Prontuário</option>
-                                    <option class="text-slate-300" value="arquivo">Arquivo</option>
-                                </select>
+                            <select name="documentType" id="documentType" class="mt-1 block w-full border-gray-300 rounded-md border border-slate-300 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm" required>
+                                {{-- <option value="" disabled selected>Selecione o tipo de documento</option>
+                                <option class="text-slate-300" value="0">Processo</option>
+                                <option class="text-slate-300" value="1">Prontuário</option>
+                                <option class="text-slate-300" value="arquivo">Arquivo</option> --}}
+                            </select>
                             <x-input-error class="mt-2" :messages="$errors->get('documentType')" />
                         </div>
+
 
                         <div>
                             <x-input-label for="documentCode" :value="__('Número de Identificação do documento')" />
