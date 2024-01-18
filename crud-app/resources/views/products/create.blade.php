@@ -19,7 +19,7 @@
                                 {{ __("Cadastre as informações de um novo produto") }}
                             </p>
                         </header>
-                        <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+                        <form method="post" action="{{ route('create') }}" class="mt-6 space-y-6">
                         @csrf
                         @method('patch')
 
