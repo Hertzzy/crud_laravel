@@ -16,13 +16,13 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('documents')" :active="request()->routeIs('documents')">
+                    <x-nav-link :href="route('/documents/documents')" :active="request()->routeIs('/documents/documents')">
                         Documentos
                     </x-nav-link>
                 </div>
 
                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('create')" :active="request()->routeIs('create')">
+                    <x-nav-link :href="route('/documents/create')" :active="request()->routeIs('/documents/create')">
                         Criar documento
                     </x-nav-link>
                 </div>

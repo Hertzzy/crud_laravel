@@ -6,22 +6,25 @@ use Illuminate\Http\Request;
 
 use App\Models\Documents;
 use App\Models\User;
-
+use League\CommonMark\Node\Block\Document;
 
 class DocumentController extends Controller
 {
-    public function create(Request $request) {
+    public function index() {
 
-        $request->validate([
-            'documentType' => 'required',
-            'documentCode' => 'required',
-            'name' => 'required',
-            'documentCpf' => 'required|digits:11', // Ajuste para validar CPF com 11 dígitos
-            'documentRg' => 'required|digits:9',  // Ajuste para validar RG com 9 dígitos
-            'documentDate' => 'required|date',
-            'uploadDoc' => 'sometimes|file|mimes:pdf|max:10240', // Adicione regras de validação para o upload do documento
-        ]);
+        $documents = Documents::all();
 
+        return view('documents.documents', ['documents'=> $documents]);
+    }
+
+    public function create() {
+
+        return view('documents.create');
+    }
+
+    public function store(Request $request) {
+
+        // Estancia a classe do model
         $document = new Documents;
 
         $document->documentType = $request->documentType;
@@ -31,19 +34,32 @@ class DocumentController extends Controller
         $document->documentRg = $request->documentRg;
         $document->documentDate = $request->documentDate;
 
-        // Document Upload
-        if ($request->hasFile('uploadDoc') && $request->file('uploadDoc')->isValid()) {
-            $requestImage = $request->uploadDoc;
-            $extension = $requestImage->extension();
-            $DocName = md5($requestImage->getClientOriginalName() . strtotime("now") . "." . $extension);
-            $requestImage->move(public_path('Documents/Docs'), $DocName);
-            $document->uploadDoc = $DocName;
-        }
+        if($request->hasFile('uploadDoc') && $request->file('uploadDoc')->isValid()){
 
+            $requestUpload = $request->uploadDoc;
+            
+            $extension = $requestUpload->extension();
+
+            // Nome da imagem no servidor
+            $uploadName = md5($requestUpload->getClientOriginalName() . strtotime("now") . "." . $extension);
+
+            // Salvar imagem
+            $requestUpload->move(public_path('docs/documentos'), $uploadName);
+
+            $document->uploadDoc = $uploadName;
+        }
+        // Salva no banco de dados
         $document->save();
 
-        // return redirect()->route('documents.index')->with('msg', 'Documento criado com sucesso!');
+        // Redireciona o usuario para outra página
+        return redirect('/documents/documents')->with('msg', 'Documento criado com sucesso!');
+    }
 
-        return view('documents.create');
+    public function show($id){
+
+        $document = Documents::findOrFail($id);
+
+        // $documentOwner = User::where('id', $document->user_id)->first()->toArray();
+        return view('documents.show', ['document' => $document]);
     }
 }

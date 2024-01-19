@@ -1,12 +1,10 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-           Cadastrar um novo documento
+           Editar documento
         </h2>
     </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -15,27 +13,28 @@
                    <div class="mt-6">    
                      <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                {{ __('Cadastre informações do documento') }}
+                                {{ __('Edite informações do documento') }}
                             </h2>
 
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __("Cadastre as informações de um novo documento") }}
+                                {{ __("Cadastre as informações do documento") }}
                             </p>
                         </header>
 
-                        <form action="/documents" method="POST" class="mt-6 space-y-6 -mb-2" enctype="multipart/form-data"> 
+                       <form action="/documents" method="POST" class="mt-6 space-y-6 -mb-2" enctype="multipart/form-data">
                         @csrf
                         <div>
-                            <x-input-label for="uploadDoc" :value="__('Faça upload do arquivo PDF')" />
+                            <x-input-label for="uploadDoc" :value="__('Substituir Arquivo')" />
                             <input type="file" name="uploadDoc" id="uploadDoc">
+                            <img src="/documents/docs/{{ $document->uploadDoc }}" alt="..." class="img-preview">
                         </div>
 
-                       <div>
+                        <div>
                             <x-input-label for="documentType" :value="__('Tipo do documento')" />
                             <select name="documentType" id="documentType" class="mt-1 block w-full border-gray-300 rounded-md border border-slate-300 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm" required>
                                 <option value="" disabled selected>Selecione o tipo de documento</option>
                                 <option class="text-slate-300" value="processo">Processo</option>
-                                <option class="text-slate-300" value="prontuario">Prontuário</option>
+                                <option class="text-slate-300" value="{{ $document->documentType == "prontuario" ?  "selected='selected'" : "" }}">Prontuário</option>
                                 <option class="text-slate-300" value="arquivo">Arquivo</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('documentType')" />
