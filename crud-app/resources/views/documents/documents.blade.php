@@ -60,11 +60,11 @@
                                         {{ $document->documentDate }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        Link...
+                                        <a href="/docs/documentos/{{ $document->uploadDoc }}" target="_blank">{{$document->uploadDoc }}</a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="/documents/{{ $document->id }}" class="px-px text-indigo-600 hover:text-indigo-900 ">Editar</a>
-                                        <a href="#" class="ml-2 text-red-600 hover:text-red-900">Deletar</a>
+                                        <a href="/documents/show/{{ $document->id }}" class="px-px text-indigo-600 hover:text-indigo-900"><ion-icon name="create-outline"></ion-icon></a>
+                                        <a href="/documents/{{ $document->id }}" class="ml-2 text-red-600 hover:text-red-900"><ion-icon name="trash-outline"></ion-icon></a>
                                     </td>
                             </tr>
                                 @endforeach
@@ -76,4 +76,3 @@
         </div>
     </div>
 </x-app-layout>
- 

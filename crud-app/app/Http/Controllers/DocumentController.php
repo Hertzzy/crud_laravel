@@ -5,25 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Documents;
-use App\Models\User;
-use League\CommonMark\Node\Block\Document;
 
 class DocumentController extends Controller
 {
     public function index() {
-
         $documents = Documents::all();
 
         return view('documents.documents', ['documents'=> $documents]);
     }
 
     public function create() {
-
         return view('documents.create');
     }
 
     public function store(Request $request) {
-
         // Estancia a classe do model
         $document = new Documents;
 
@@ -56,10 +51,23 @@ class DocumentController extends Controller
     }
 
     public function show($id){
-
         $document = Documents::findOrFail($id);
 
-        // $documentOwner = User::where('id', $document->user_id)->first()->toArray();
         return view('documents.show', ['document' => $document]);
+    }
+
+     public function update(Request $request){
+
+        Documents::findOrFail($request->id)->update($request->all());
+
+        return redirect('/dashboard')->with('msg', 'Documento editado com sucesso!');
+        
+    }
+
+    public function destroy($id) {
+        
+        Documents::findOrFail($id)->delete();
+
+        return redirect('/documents/documents')->with('msg', 'Documento excluído com sucesso!');
     }
 }

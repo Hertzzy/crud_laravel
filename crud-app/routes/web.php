@@ -3,18 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
-use League\CommonMark\Node\Block\Document;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,16 +17,11 @@ Route::get('/documents/documents', function () {
 })->middleware(['auth', 'verified'])->name('/documents/documents');
 
 Route::get('/documents/documents', [DocumentController::class, 'index'])->middleware(['auth', 'verified'])->name('/documents/documents');
-
-
 Route::get('/documents/create', [DocumentController::class, 'create'])->middleware(['auth', 'verified'])->name('/documents/create');
 Route::post('/documents', [DocumentController::class, 'store'])->middleware(['auth', 'verified'])->name('/documents');
-// Route::post('/documents/show/{id}', [DocumentController::class, 'show'])->middleware(['auth', 'verified'])->name('/documents/show/{id}');
-Route::get('/documents/{id}', [DocumentController::class, 'show'])->middleware(['auth', 'verified'])->name('documents/{id}');
-
-
-// Route::get('/documents/create', [DocumentController::class, 'index'])->middleware(['auth', 'verified'])->name('/documents/create');
-// Route::get('/documents/{id}', [DocumentController::class, 'index'])->middleware(['auth', 'verified'])->name('/documents/{id}');
+Route::get('/documents/show/{id}', [DocumentController::class, 'show'])->middleware(['auth', 'verified'])->name('documents/{id}');
+Route::put('/documents/update/{id}', [DocumentController::class, 'update'])->middleware(['auth', 'verified'])->name('/documents/update/{id}');
+Route::get('/documents/{id}', [DocumentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('documents/{id}');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
