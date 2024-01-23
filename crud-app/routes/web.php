@@ -23,8 +23,12 @@ Route::get('/documents/show/{id}', [DocumentController::class, 'show'])->middlew
 Route::put('/documents/update/{id}', [DocumentController::class, 'update'])->middleware(['auth', 'verified'])->name('/documents/update/{id}');
 Route::get('/documents/{id}', [DocumentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('documents/{id}');
 
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/create', [ProfileController::class, 'create'])->name('/profile/create');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
